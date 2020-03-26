@@ -46,6 +46,9 @@ jobs:
           name: setup docker
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
+          name: Checkout
+          command: git checkout v0.5.3
+      - run:
           name: Release
           command: goreleaser --rm-dist --skip-publish
       - run:
