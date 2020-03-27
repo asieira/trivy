@@ -5,6 +5,10 @@ UBUNTU_RELEASES=$(ubuntu-distro-info --supported)
 
 cd trivy-repo/deb
 
+echo "repo list"
+reprepro ls trivy
+reprepro ls trivy | awk -F "|" '{print $3}' | sed 's/ //g'
+
 for release in $(reprepro ls trivy | awk -F "|" '{print $3}' | sed 's/ //g'); do
   echo "Removing deb package of $release"
   reprepro -A i386 remove $release trivy
@@ -17,6 +21,6 @@ for release in ${DEBIAN_RELEASES[@]} ${UBUNTU_RELEASES[@]}; do
   reprepro includedeb $release ../../dist/*Linux-32bit.deb
 done
 
-git add .
-git commit -m "Update deb packages"
-git push origin master
+#git add .
+#git commit -m "Update deb packages"
+#git push origin master
